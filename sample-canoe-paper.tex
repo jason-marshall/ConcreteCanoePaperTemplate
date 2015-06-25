@@ -1,0 +1,190 @@
+\documentclass[letterpaper,12pt,twoside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{pdfpages}
+\usepackage[top=0.65in, bottom=0.5in, left=0.5in, right=0.5in]{geometry}
+\usepackage{mathptmx} % times new roman like font
+\usepackage{lipsum}
+\usepackage{fancyhdr}
+
+\usepackage[
+style=alphabetic,
+citestyle=authoryear 
+]{biblatex}
+
+%\usepackage{natbib}
+%\bibliographystyle{abvnat}
+%\bibliographystyle{ascelike}
+%\setcitestyle{authoryear,comma,open={(},close={)}}
+
+\pagestyle{fancy}
+
+%
+% page style for table of contents
+%
+\fancypagestyle{plain}{%
+  %
+  % header stuff
+  %
+  \renewcommand{\headrulewidth}{1.0pt}
+  \fancyhead[CO,CE]{\Large\textbf{\textcolor{orange}{TABLE OF CONTENTS}}}
+  \fancyhead[RO,LE]{}
+  \fancyhead[RE,LO]{\textbf{\emph{BEAVER}}}
+
+  %
+  % footer stuff
+  %
+  \renewcommand{\footrulewidth}{1.0pt}
+  \fancyfoot[CO,CE]{\textbf{\textcolor{orange}{\Large CALIFORNIA INSTITUTE OF TECHNOLOGY}}}
+  \fancyfoot[RE,LO]{\Large\textbf{\thepage}}
+  \fancyfoot[RO,LE]{}
+}
+
+%
+% header stuff
+%
+\renewcommand{\headrulewidth}{1.0pt}
+\fancyhead[CO,CE]{\Large\textbf{\textcolor{orange}{TABLE OF CONTENTS}}}
+\fancyhead[RO,LE]{}
+\fancyhead[RE,LO]{\textbf{\emph{BEAVER}}}
+
+%
+% footer stuff
+%
+\renewcommand{\footrulewidth}{1.0pt}
+\fancyfoot[CO,CE]{\textbf{\textcolor{orange}{\Large CALIFORNIA INSTITUTE OF TECHNOLOGY}}}
+\fancyfoot[RE,LO]{\Large\textbf{\thepage}}
+\fancyfoot[RO,LE]{}
+
+%
+% Setup list of canoe sections
+%
+\usepackage{tocloft}
+\newcommand{\listcanoesectionsname}{\normalfont \normalsize \textbf{Table of Contents}}
+\newlistof{canoesections}{CanoeSections}{\listcanoesectionsname}
+\newcommand{\canoesections}[1]{\addcontentsline{CanoeSections}{canoesections}{#1}}
+
+%
+% Setup list of canoe figures
+%
+\newcommand{\listcanoefiguresname}{\normalfont \normalsize \textbf{List of Figures}}
+\newlistof{canoefigures}{CanoeFigures}{\listcanoefiguresname}
+\newcommand{\canoefigures}[1]{\addcontentsline{CanoeFigures}{canoefigures}{#1}}
+
+%
+% Setup list of canoe tables
+%
+\newcommand{\listcanoetablesname}{\normalfont \normalsize \textbf{List of Tables}}
+\newlistof{canoetables}{CanoeTables}{\listcanoetablesname}
+\newcommand{\canoetables}[1]{\addcontentsline{CanoeTables}{canoetables}{#1}}
+
+%
+% Setup list of appendices
+%
+\newcommand{\listappendicesname}{\normalfont \normalsize \textbf{List of Appendices}}
+\newlistof{appendices}{CanoeAppendices}{\listappendicesname}
+\newcommand{\appendices}[1]{\addcontentsline{CanoeAppendices}{appendices}{#1}}
+
+%
+% format paper parameters
+%
+\setlength{\parindent}{1em}
+\setlength{\parskip}{0em}
+\setlength\headheight{22pt}
+\setlength{\headsep}{0.1in}
+
+\begin{document}
+
+%
+% cover and toc
+%
+\setcounter{page}{0}
+\renewcommand{\thepage}{\roman{page}}
+\includepdf[pages={1}]{00-Cover/cover.pdf}
+\include{{00-Cover/toc}}
+
+%
+% executive summary
+%
+\include{{./01-ExecSummary/exec-summary}}
+
+%
+% project management
+%
+\renewcommand{\thepage}{\arabic{page}}
+\setcounter{page}{1}
+\include{{./02-ProjectMgmt/project-management}}
+
+%
+% org chart
+%
+\includepdf[pages={1}]{03-OrgChart/chart.pdf}
+
+%
+% hull design and analysis
+%
+\include{{./04-DesignAnalysis/design-analysis}}
+
+%
+% mix development and testing
+%
+\include{{./05-MixDevelopment/development-testing}}
+
+%
+% construction
+%
+\include{{./06-Construction/construction}}
+
+%
+% project schedule
+\setcounter{page}{10}
+\canoesections{Project Schedule}
+\includepdf[pages={1},fitpaper=true,noautoscale=false]{07-ProjectSchedule/schedule.pdf}
+
+%
+% design drawing
+%
+\setcounter{page}{11}
+\canoesections{Design Drawing}
+\includepdf[pages={1},fitpaper=true,noautoscale=false]{08-DesignDrawing/drawing.pdf}
+
+%
+% references
+%
+\appendices{Appendix A - References}
+\fancyfoot[LE,RO]{\Large\textbf{\thepage}}
+\fancyfoot[LO,RE]{}
+\setcounter{page}{1}
+\renewcommand*{\thepage}{A\arabic{page}}
+\fancyhead[CO,CE]{\Large\textbf{\textcolor{orange}{REFERENCES}}}
+\lipsum[1-4]
+
+
+%\cleardoublepage
+%\normalbaselines %Fixes spacing of bibliography
+\bibliography{sample-canoe-paper.bib} %your bibliography file - change the path if needed
+
+
+%
+% mixture proportions
+%
+\setcounter{page}{1}
+\appendices{Appendix B - Mixture Proportions}
+\renewcommand*{\thepage}{B\arabic{page}}
+\includepdf[pages={1},fitpaper=true,noautoscale=false]{10-MixProportions/mix-proportions.pdf}
+
+%
+% bill of materials 
+%
+\include{{./11-BillMaterials/bill-materials}}
+
+%
+% structural calcs
+%
+\setcounter{page}{1}
+\appendices{Appendix D - Example Structural Calculation}
+\renewcommand*{\thepage}{D\arabic{page}}
+\includepdf[pages={1},fitpaper=true,noautoscale=false]{12-StrucCalcs/struc-calc-1.pdf}
+\includepdf[pages={1},fitpaper=true,noautoscale=false]{12-StrucCalcs/struc-calc-2.pdf}
+
+
+\end{document}          
